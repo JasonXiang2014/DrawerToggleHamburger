@@ -15,7 +15,7 @@
  */
 
 
-package pauland.mypplication.lib.drawertogglehamburger;
+package pauland.mypplication.lib;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -163,25 +163,15 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
 
     }
 
-    Drawable getThemeUpIndicator ()
-    {
-        if (mActivityImpl != null)
-        {
-            return mActivityImpl.getThemeUpIndicator();
-        }
-        return IMPL.getThemeUpIndicator(mActivity);
-    }
-
-
     /**
-     * set margin left and margin right inside icon
+     * set padding left and padding right inside icon
      *
-     * @param marginLR margins in pixel.
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @param paddingLR paddings in pixel.
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
-    public DrawerToggleHamburger setMarginLR (int marginLR)
+    public DrawerToggleHamburger setPaddingLR (int paddingLR)
     {
-        mSlider.setMarginLR(marginLR);
+        mSlider.setPaddingLR(paddingLR);
         return this;
     }
 
@@ -189,7 +179,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
      * Set height for a bar in icon
      *
      * @param barHeight bar height in pixel.
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
     public DrawerToggleHamburger setBarHeight (int barHeight)
     {
@@ -197,16 +187,15 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
         return this;
     }
 
-
     /**
-     * Set margin top and margin bottom inside icon
+     * Set padding top and padding bottom inside icon
      *
-     * @param marginTB margins in pixel
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @param paddingTB paddings in pixel
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
-    public DrawerToggleHamburger setMarginTB (int marginTB)
+    public DrawerToggleHamburger setPaddingTB (int paddingTB)
     {
-        mSlider.setMarginTB(marginTB);
+        mSlider.setPaddingTB(paddingTB);
         return this;
     }
 
@@ -214,7 +203,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
      * Set icon opened color
      *
      * @param color A color (NOT a resource) use <code>getResources().getColor(resId)</code> for resource</code>
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
     public DrawerToggleHamburger setOpenedColor (int color)
     {
@@ -226,7 +215,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
      * Set icon closed color
      *
      * @param color A color (NOT a resource) use <code>getResources().getColor(resId)</code> for resource</code>
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
     public DrawerToggleHamburger setClosedColor (int color)
     {
@@ -238,7 +227,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
      * set if the bar ends are rounded
      *
      * @param rounded true if rounded, else false (default)
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      */
     public DrawerToggleHamburger setRounded (boolean rounded)
     {
@@ -250,12 +239,12 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
      * Set the style shape for opened drawer
      *
      * @param style value for the new style (default {@link #STYLE_CROSS})
-     * @return {@link pauland.mypplication.lib.drawertogglehamburger.DrawerToggleHamburger}
+     * @return {@link pauland.mypplication.lib.DrawerToggleHamburger}
      * @see #STYLE_ARROW
      * @see #STYLE_CARET
      * @see #STYLE_CROSS
      */
-    public DrawerToggleHamburger setStyleShapeOpened (int style)
+    public DrawerToggleHamburger setStyleShape (int style)
     {
         if (style != STYLE_ARROW && style != STYLE_CARET && style != STYLE_CROSS)
             mSlider.setStyleShape(STYLE_CROSS);
@@ -298,16 +287,6 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
             }
             mDrawerIndicatorEnabled = enable;
         }
-    }
-
-    void setActionBarUpIndicator (Drawable upDrawable, int contentDescRes)
-    {
-        if (mActivityImpl != null)
-        {
-            mActivityImpl.setActionBarUpIndicator(upDrawable, contentDescRes);
-            return;
-        }
-        mSetIndicatorInfo = IMPL.setActionBarUpIndicator(mSetIndicatorInfo, mActivity, upDrawable, contentDescRes);
     }
 
     /**
@@ -443,6 +422,25 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
     @Override
     public void onDrawerStateChanged (int newState)
     {
+    }
+
+    Drawable getThemeUpIndicator ()
+    {
+        if (mActivityImpl != null)
+        {
+            return mActivityImpl.getThemeUpIndicator();
+        }
+        return IMPL.getThemeUpIndicator(mActivity);
+    }
+
+    void setActionBarUpIndicator (Drawable upDrawable, int contentDescRes)
+    {
+        if (mActivityImpl != null)
+        {
+            mActivityImpl.setActionBarUpIndicator(upDrawable, contentDescRes);
+            return;
+        }
+        mSetIndicatorInfo = IMPL.setActionBarUpIndicator(mSetIndicatorInfo, mActivity, upDrawable, contentDescRes);
     }
 
     void setActionBarDescription (int contentDescRes)
@@ -744,7 +742,8 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
         private int   mColorFrom, mColorTo;
         private Paint mPaintIcon, mPaintCenterBar;
         private boolean mRounded;
-        private int     mStyle, mMarginLR, mMarginTB, mBarHeight;
+        private int     mStyle, mPaddingLR, mPaddingTB, mBarHeight;
+        private float top, left, right, bottom;
 
         private TransformDrawable (Resources resource, Drawable d)
         {
@@ -754,9 +753,9 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
             mColorFrom = Color.WHITE;
             mColorTo = mColorFrom;
             mRounded = false;
-            mMarginLR = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, resource.getDisplayMetrics());
-            mMarginTB = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, resource.getDisplayMetrics());
-            mBarHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, resource.getDisplayMetrics());
+            mPaddingLR = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, resource.getDisplayMetrics());
+            mPaddingTB = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, resource.getDisplayMetrics());
+            mBarHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, resource.getDisplayMetrics());
             mStyle = STYLE_CROSS;
 
             mPaintIcon.setAntiAlias(true);
@@ -808,15 +807,15 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
             invalidateSelf();
         }
 
-        public void setMarginLR (int marginLR)
+        public void setPaddingLR (int paddingLR)
         {
-            mMarginLR = marginLR;
+            mPaddingLR = paddingLR;
             invalidateSelf();
         }
 
-        public void setMarginTB (int marginTB)
+        public void setPaddingTB (int paddingTB)
         {
-            mMarginTB = marginTB;
+            mPaddingTB = paddingTB;
             invalidateSelf();
         }
 
@@ -833,6 +832,12 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
             {
                 case STYLE_CROSS:
                     drawCrossStyle(canvas);
+                    break;
+                case STYLE_CARET:
+                    drawCaretStyle(canvas);
+                    break;
+                case STYLE_ARROW:
+                    drawArrowStyle(canvas);
                     break;
             }
 
@@ -851,14 +856,15 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
 
             final int width = mTmpRect.width();
             final int height = mTmpRect.height();
+
             //space between bars
-            final int spaceBwBar = (height - mMarginTB * 2 - mBarHeight * 3) / 2;
-            int currentY = mMarginTB;
+            final int spaceBwBar = (height - mPaddingTB * 2 - mBarHeight * 3) / 2;
+            int currentY = mPaddingTB;
 
             canvas.save();
             canvas.translate(0, mPosition * ((height / 2) - (currentY + mBarHeight / 2)));
             canvas.rotate(45 * mPosition, width / 2, (currentY + mBarHeight / 2));
-            mTmpRectDraw.set(mMarginLR, currentY, width - mMarginLR, currentY + mBarHeight);
+            mTmpRectDraw.set(mPaddingLR, currentY, width - mPaddingLR, currentY + mBarHeight);
 
             currentY += mBarHeight + spaceBwBar;
 
@@ -871,7 +877,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
 
 
             mPaintCenterBar.setAlpha(255 - (int) (255 * mPosition));
-            mTmpRectDraw.set(mMarginLR, currentY, width - mMarginLR, currentY + mBarHeight);
+            mTmpRectDraw.set(mPaddingLR, currentY, width - mPaddingLR, currentY + mBarHeight);
 
             currentY += mBarHeight + spaceBwBar;
 
@@ -886,7 +892,7 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
             canvas.rotate(-45 * mPosition, width / 2, (currentY + mBarHeight / 2));
 
 
-            mTmpRectDraw.set(mMarginLR, currentY, width - mMarginLR, currentY + mBarHeight);
+            mTmpRectDraw.set(mPaddingLR, currentY, width - mPaddingLR, currentY + mBarHeight);
             if (mRounded)
                 canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintIcon);
             else
@@ -896,13 +902,135 @@ public class DrawerToggleHamburger implements DrawerLayout.DrawerListener
         }
 
 
+        private void drawArrowStyle (Canvas canvas)
+        {
+            copyBounds(mTmpRect);
+            canvas.save();
+
+            mPaintIcon.setColor(transitionColor(mPosition, mColorFrom, mColorTo));
+            mPaintCenterBar.setColor(transitionColor(mPosition, mColorFrom, mColorTo));
+
+            final int width = mTmpRect.width();
+            final int height = mTmpRect.height();
+            final int barWidth = width - mPaddingLR * 2;
+
+
+            //space between bars
+            final int spaceBwBar = (height - mPaddingTB * 2 - mBarHeight * 3) / 2;
+            int currentY = mPaddingTB;
+
+            left = mPaddingLR;
+            top = currentY + ((mBarHeight + spaceBwBar) * mPosition);
+            right = width - mPaddingLR - ((barWidth / 2) * mPosition);
+            bottom = top + mBarHeight;
+
+            //TOP BAR
+            canvas.save();
+            canvas.rotate(-35 * mPosition, left, top);
+            mTmpRectDraw.set(left, top, right, bottom);
+            currentY += mBarHeight + spaceBwBar;
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintIcon);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintIcon);
+            canvas.restore();
+
+
+            //MIDDLE BAR
+            mTmpRectDraw.set(mPaddingLR, currentY, width - mPaddingLR, currentY + mBarHeight);
+            currentY += mBarHeight + spaceBwBar;
+
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintCenterBar);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintCenterBar);
+
+
+            //BOTTOM BAR
+            top = currentY - ((spaceBwBar + mBarHeight) * mPosition);
+            bottom = top + mBarHeight;
+
+            canvas.save();
+            canvas.rotate(35 * mPosition, left, bottom);
+            mTmpRectDraw.set(left, top, right, bottom);
+
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintIcon);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintIcon);
+
+            canvas.restore();
+        }
+
+        private void drawCaretStyle (Canvas canvas)
+        {
+            copyBounds(mTmpRect);
+            canvas.save();
+
+            mPaintIcon.setColor(transitionColor(mPosition, mColorFrom, mColorTo));
+            mPaintCenterBar.setColor(transitionColor(mPosition, mColorFrom, mColorTo));
+
+
+            final int width = mTmpRect.width();
+            final int height = mTmpRect.height();
+            final int barWidth = width - mPaddingLR * 2;
+
+
+            //space between bars
+            final int spaceBwBar = (height - mPaddingTB * 2 - mBarHeight * 3) / 2;
+            int currentY = mPaddingTB;
+
+            left = mPaddingLR;
+            top = currentY + ((mBarHeight + spaceBwBar) * mPosition);
+            right = width - mPaddingLR - ((barWidth / 2) * mPosition);
+            bottom = top + mBarHeight;
+
+            canvas.save();
+            canvas.rotate(-40 * mPosition, left, top);
+            mTmpRectDraw.set(left, top, right, bottom);
+            currentY += mBarHeight + spaceBwBar;
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintIcon);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintIcon);
+            canvas.restore();
+
+
+            top = currentY;
+            bottom = top + mBarHeight;
+            mPaintCenterBar.setAlpha(255 - (int) (255 * mPosition));
+            mTmpRectDraw.set(left, top, right, bottom);
+            currentY += mBarHeight + spaceBwBar;
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintCenterBar);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintCenterBar);
+
+
+            //BOTTOM BAR
+            top = currentY - ((spaceBwBar + mBarHeight + mBarHeight / 2) * mPosition);
+            bottom = top + mBarHeight;
+
+            canvas.save();
+            canvas.rotate(40 * mPosition, left, bottom);
+            mTmpRectDraw.set(left, top, right, bottom);
+
+            if (mRounded)
+                canvas.drawRoundRect(mTmpRectDraw, mBarHeight / 2, mBarHeight / 2, mPaintIcon);
+            else
+                canvas.drawRect(mTmpRectDraw, mPaintIcon);
+
+            canvas.restore();
+
+        }
+
         private int transitionColor (float value, int from, int to)
         {
+            int alpha = (int) Math.abs((value * Color.alpha(to)) + ((1 - value) * Color.alpha(from)));
             int red = (int) Math.abs((value * Color.red(to)) + ((1 - value) * Color.red(from)));
             int green = (int) Math.abs((value * Color.green(to)) + ((1 - value) * Color.green(from)));
             int blue = (int) Math.abs((value * Color.blue(to)) + ((1 - value) * Color.blue(from)));
-            return Color.rgb(red, green, blue);
+            return Color.argb(alpha, red, green, blue);
         }
     }
 }
-//
